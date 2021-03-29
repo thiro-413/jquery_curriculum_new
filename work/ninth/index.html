@@ -11,7 +11,11 @@
   </head>
   <body>
     <div class="wrapper">
-      <ul class="colorList"></ul>
+      <ul class="colorList">
+        <li class="colorList__item">
+          <p class="colorList__title"></p>
+        </li>
+      </ul>
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
@@ -22,18 +26,19 @@
         .done(function(data) {
           console.log(data);
           $.each(data.colorsArray, function(index, val) {
+            var colorList__item = $('.colorList__item').eq(index).clone();
+            if(data.colorsArray.length > $('.colorList__item').length) {
+              $('.colorList').append(colorList__item);
+            }
             var colorName = val.colorName;
             var hexValue = val.hexValue;
-            var colorList__item = "<li class='colorList__item'></li>"
-            $('.colorList').append(
-              $(colorList__item).append("<p class='colorList__title'</p>")
-            );
             $('.colorList__item')
               .eq(index)
               .children('.colorList__title')
               .text(colorName)
               .css('background-color',hexValue);
           })
+          
         })
       });
 
