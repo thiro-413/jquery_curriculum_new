@@ -82,10 +82,10 @@
     });
 // 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
     $('#q4').click(function() {
-      $(this).before('<span>DOMの前</span>');
-      $(this).after('<span>DOMの後</span>');
-      $(this).prepend('<span>DOMの中の前</span>');
-      $(this).append('<span>DOMの中の後</span>');
+      $(this).before('<span>DOMの前</span>')
+              .after('<span>DOMの後</span>')
+              .prepend('<span>DOMの中の前</span>')
+              .append('<span>DOMの中の後</span>');
     });
 // 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
     $('#q5').click(function() {
@@ -94,9 +94,9 @@
 // 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
     $('#q6').click(function() {
       $(this).animate({
-        marginTop:'100',
-        marginLeft:'100'
-      },2000);
+        'marginTop': 100,
+        'marginLeft': 100
+      }, 2000);
     });
 // 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
     $('#q7 li').click(function() {
@@ -107,8 +107,7 @@
 // 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
     $('#q8').hover(function() {
       $(this).addClass('large');
-    },
-      function(){
+    }, function(){
         $(this).removeClass('large');
     });
 // 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。

@@ -28,6 +28,83 @@
     <script src="../../common/js/jquery.js"></script>
     <script src="./js/appid.js"></script>
     <script>
+      $(function() {
+        var page = 1;
+        $('.search__btn').on('click',function searchBooks() {
+          var searchWord = $('.search__text__input').val();
+          $('.lists__item').hide();
+          $('.pager').hide();
+          console.log(searchWord);
+          $.ajax({
+            url: encodeURI('https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?'),
+            type: 'GET',
+            dataType: 'json',
+            data: {
+              applicationId: appId,
+              booksGenreId: '001',
+              size: '0',
+              formatVersion: '2',
+              keyword: searchWord,
+              hits: '20',
+              page: page,
+              outOfStockFlag: '0',
+              chirayomiFlag: '0',
+              sort: 'standard',
+              limitedFlag: '0',
+            }
+          }).done(function(data) {
+            console.log(data);
+            $.each(data.Items, function(index, val){
+              $('.lists').append(
+                "<li class='lists__item'>" + 
+                  "<div class='lists__item__inner'>" +
+                    "<a href='" + val.itemUrl + "' class='lists__item__link' target='_blank'>" +
+                      "<img src='" + val.largeImageUrl +"' class='lists__item__img' alt=''>" +
+                      "<p class='lists__item__detail'>作品名：" + val.title + "</p>" +
+                      "<p class='lists__item__detail'>作者　：" + val.author + "</p>" +
+                      "<p class='lists__item__detail'>出版社：" + val.publisherName + "</p>" +
+                    "</a>" +
+                  "</div>" +
+                "</li>"
+              );
+            });
+            $('.container').append(
+              '<div class="pager" data-js="pager">' +
+                '<div class="counter">' +
+                  '<span class="counter-current">' + data.page + '</span>/<span class="counter-all">' + data.pageCount + '</span>' +
+                '</div>' +
+                '<div class="btn-wrapper">' +
+                  '<a class="btn-item" data-js="page-prev" href="#">前へ</a>' +
+                  '<a class="btn-item" data-js="page-next" href="#">次へ</a>' +
+                '</div>' +
+              '</div>'
+            );
+            var pageCount = data.pageCount;
+            $('.btn-item').on('click', function pager(e) {
+              e.preventDefault();
+              console.log(page);
+              if($('.btn-item').data('js') == "page-prev") {
+                pagePrev(page, pageCount);
+              } else if ($('.btn-item').data('js') == "page-next") {
+                pageNext(page, pageCount);
+              }
+              function pagePrev(page, pageCount) {
+                if (page > 1) {
+                  page -= 1;
+                  searchBooks();
+                }
+              }
+              function pageNext(page, pageCount) {
+                if(page < pageCount) {
+                  page += 1;
+                  searchBooks();
+                  
+                }
+              }
+            });
+          });
+        });
+      });
       // 楽天ブックスの総合検索APIを使って製作してください。
       // answerの挙動を良く見てね！
       //

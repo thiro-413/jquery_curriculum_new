@@ -49,10 +49,10 @@
     <script>
       $(function() {
         $('.menu__list li').hover(function() {
-          $(this).children('.menu__list__childList').stop().slideDown();
+          $(this).children('ul').stop().slideDown();
         },
           function() {
-            $(this).children('.menu__list__childList').stop().slideUp();
+            $(this).children('ul').stop().slideUp();
           }
         );
       });

@@ -87,16 +87,14 @@
       $(function() {
         $('.select').change(function() {
           var typeVlue = $(this).val();
-          if(typeVlue == 'all') {
-            $('.list li').each(function() {
-              $(this).show();
-            });
+          if(typeVlue === 'all') {
+            $('.list li').show();
           } else {
-            $('.list li').each(function() {
-              if($(this).data('category-type') == typeVlue ){
-                $(this).show();
+            $('.list li').each(function(index,elme) {
+              if(typeVlue === $(elme).data('category-type')){
+                $(elme).show();
               } else {
-                $(this).hide();
+                $(elme).hide();
               }
             });
           }
