@@ -39,6 +39,9 @@
           page = 1;
           searchBooks();
         });
+        $(document).on('click', '.btn-item', function(e) {
+          pageFunc(e);
+        });
         function searchBooks() {
           $('.lists__item').hide();
           $('.pager').hide();
@@ -123,9 +126,6 @@
             }
           };
         };
-        $(document).on('click', '.btn-item', function(e) {
-          pageFunc(e);
-        });
         function pageFunc(e) {
           e.preventDefault();
           if(e.target.dataset.js === "page-prev") {
