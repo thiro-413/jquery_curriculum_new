@@ -43,8 +43,8 @@
           pageFunc(e);
         });
         function searchBooks() {
-          $('.lists__item').hide();
-          $('.pager').hide();
+          $('.lists__item').remove();
+          $('.pager').remove();
           console.log(searchWord);
           $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
@@ -95,12 +95,12 @@
               if (page === 1 && page === pageCount) {
                 $('.btn-item').addClass('disabled');
               } else if (page === 1) {
-                $('.btn-item:first-child').addClass('disabled');
+                $('[data-js = "page-prev"]').addClass('disabled');
               } else if (page === pageCount) {
                 $('.btn-item:last-child').addClass('disabled');
               }
             } else {
-              $('.message').append('検索結果が見つかりませんでした。' + '<br>' + '別のキーワードで検索して下さい。');
+              $('.message').text('検索結果が見つかりませんでした。' + '<br>' + '別のキーワードで検索して下さい。');
             }
           }
           function failFunc(error) {
